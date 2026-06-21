@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useAuth } from '@/hooks/useAuth';
 import { useGameStore } from '@/stores/gameStore';
 import { connectSocket, emitWithAck, getSocket, SOCKET_EVENTS } from '@/lib/socket';
-import { MAX_PLAYERS, MIN_PLAYERS } from '@graphwars/shared';
+import { MAX_PLAYERS, MIN_PLAYERS } from '@graphwars/shared/src/constants';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';

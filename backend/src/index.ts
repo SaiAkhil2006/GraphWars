@@ -2,12 +2,12 @@ import express from 'express';
 import cors from 'cors';
 import { createServer } from 'http';
 import { Server } from 'socket.io';
-import { config } from './config';
-import { connectDatabase } from './config/database';
-import { initializeFirebase } from './config/firebase';
-import apiRoutes from './routes/api';
-import { errorHandler } from './middleware/errorHandler';
-import { setupSocketHandlers } from './socket/handlers';
+import { config } from './config/index.js';
+import { connectDatabase } from './config/database.js';
+import { initializeFirebase } from './config/firebase.js';
+import apiRoutes from './routes/api.js';
+import { errorHandler } from './middleware/errorHandler.js';
+import { setupSocketHandlers } from './socket/handlers.js';
 
 async function main() {
   initializeFirebase();

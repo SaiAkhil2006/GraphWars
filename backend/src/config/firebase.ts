@@ -1,5 +1,5 @@
 import admin from 'firebase-admin';
-import { config } from './index';
+import { config } from './index.js';
 
 let initialized = false;
 

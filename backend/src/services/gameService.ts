@@ -5,28 +5,35 @@ import {
   PlayerState,
   MatchConfig,
   GameMove,
-  BotDifficulty,
+  BotDifficulty
+} from '@graphwars/shared/src/types.js';
+
+import {
   MAX_HEALTH,
   TURN_TIMER_SECONDS,
   MIN_PLAYERS,
   MAX_PLAYERS,
   OBSTACLE_COUNT_MIN,
   OBSTACLE_COUNT_MAX,
-  generateObstacles,
-  generateSpawnPosition,
-  getPlayerColor,
-  computeLaserTrajectory,
-  validateEquation,
-  generateBotEquation,
-  getBotThinkDelay,
   XP_PER_WIN,
   XP_PER_KILL,
   XP_PER_MATCH,
   XP_PER_LEVEL,
-} from '@graphwars/shared/src';
-import { User } from '../models/User';
-import { Match } from '../models/Match';
-import { Statistics } from '../models/Statistics';
+} from '@graphwars/shared/src/constants.js';
+
+import {
+  generateObstacles,
+  generateSpawnPosition,
+  getPlayerColor,
+  computeLaserTrajectory
+} from '@graphwars/shared/src/gameEngine.js';
+
+import { validateEquation} from '@graphwars/shared/src/equationParser.js'
+import { generateBotEquation, getBotThinkDelay} from '@graphwars/shared/src/botEngine.js'
+
+import { User } from '../models/User.js';
+import { Match } from '../models/Match.js';
+import { Statistics } from '../models/Statistics.js';
 
 const BOT_NAMES = [
   'AlphaBot', 'BetaBot', 'GammaBot', 'DeltaBot',
@@ -415,8 +422,11 @@ class GameService {
           const existingUsage = stats.functionUsage instanceof Map
             ? Object.fromEntries(stats.functionUsage)
             : (stats.functionUsage as Record<string, number>) ?? {};
-          const allUsage = { ...existingUsage, ...funcUsage };
-          const favorite = Object.entries(allUsage).sort((a, b) => b[1] - a[1])[0]?.[0] ?? 'x';
+          const allUsage: Record<string, number> = {
+            ...existingUsage,
+            ...funcUsage,
+          };
+          const favorite = (Object.entries(allUsage) as [string, number][]).sort((a, b) => b[1] - a[1])[0]?.[0] ?? 'x';          
           const newPlacements = [...stats.placements, placement];
           const newShots = stats.totalShots + playerMoves.length;
           const newHits = stats.totalHits + totalHits;

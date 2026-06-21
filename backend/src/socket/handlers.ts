@@ -1,7 +1,7 @@
 import { Server, Socket } from 'socket.io';
-import { SOCKET_EVENTS } from '@graphwars/shared/src';
-import { verifyIdToken } from '../config/firebase';
-import { gameService } from '../services/gameService';
+import { SOCKET_EVENTS } from '@graphwars/shared/src/constants.js';
+import { verifyIdToken } from '../config/firebase.js';
+import { gameService } from '../services/gameService.js';
 
 interface SocketUser {
   uid: string;
@@ -56,7 +56,9 @@ export function setupSocketHandlers(io: Server): void {
           callback?.({ success: false, error: 'Room not found or full' });
           return;
         }
-        const player = room.players.find(p: => p.odId === user.uid && !p.isBot);
+        const player = room.players.find(
+  p => p.odId === user.uid && !p.isBot
+);
         if (player) {
           gameService.bindSocket(socket.id, room.id, player.id);
         }

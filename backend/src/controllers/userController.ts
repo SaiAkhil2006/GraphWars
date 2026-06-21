@@ -1,9 +1,9 @@
 import { Response } from 'express';
-import { User } from '../models/User';
-import { Match } from '../models/Match';
-import { Statistics } from '../models/Statistics';
-import { AuthRequest } from '../middleware/auth';
-import { gameService } from '../services/gameService';
+import { User } from '../models/User.js';
+import { Match } from '../models/Match.js';
+import { Statistics } from '../models/Statistics.js';
+import { AuthRequest } from '../middleware/auth.js';
+import { gameService } from '../services/gameService.js';
 
 export async function getProfile(req: AuthRequest, res: Response): Promise<void> {
   const uid = req.user!.uid;
