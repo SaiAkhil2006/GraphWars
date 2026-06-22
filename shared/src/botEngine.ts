@@ -1,5 +1,5 @@
-import type { BotDifficulty, PlayerState, Point } from './types';
-import { BOT_THINK_DELAY } from './constants';
+import type { BotDifficulty, PlayerState, Point } from './types.ts';
+import { BOT_THINK_DELAY } from './constants.ts';
 
 const EASY_EQUATIONS = [
   'x',

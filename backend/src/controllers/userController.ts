@@ -1,9 +1,11 @@
-import { Response } from 'express';
-import { User } from '../models/User.js';
-import { Match } from '../models/Match.js';
-import { Statistics } from '../models/Statistics.js';
-import { AuthRequest } from '../middleware/auth.js';
-import { gameService } from '../services/gameService.js';
+import express from 'express';
+import { User } from '../models/User.ts';
+import { Match } from '../models/Match.ts';
+import { Statistics } from '../models/Statistics.ts'; 
+import type { AuthRequest } from '../middleware/auth.ts';
+import { gameService } from '../services/gameService.ts';
+
+type Response = express.Response;
 
 export async function getProfile(req: AuthRequest, res: Response): Promise<void> {
   const uid = req.user!.uid;

@@ -1,5 +1,5 @@
 import { create, all } from 'mathjs';
-import { MAP_MIN, MAP_MAX } from './constants';
+import { MAP_MIN, MAP_MAX } from './constants.ts';
 
 const math = create(all);
 

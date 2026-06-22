@@ -1,12 +1,12 @@
 import { Router } from 'express';
-import { authMiddleware } from '../middleware/auth.js';
+import { authMiddleware } from '../middleware/auth.ts';
 import {
   getProfile,
   updateProfile,
   getLeaderboard,
   getMatchHistory,
   getPublicRooms,
-} from '../controllers/userController.js';
+} from '../controllers/userController.ts';
 
 const router = Router();
 

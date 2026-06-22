@@ -3,8 +3,10 @@
 import { io, Socket } from 'socket.io-client';
 import { SOCKET_EVENTS } from '@graphwars/shared/src/constants';
 import { getIdToken, auth } from './firebase';
+import { waitForAuth} from './helper';
 
-const SOCKET_URL = process.env.NEXT_PUBLIC_SOCKET_URL || 'http://localhost:4000';
+const SOCKET_URL =
+  process.env.NEXT_PUBLIC_SOCKET_URL || 'http://localhost:4000';
 
 let socket: Socket | null = null;
 
@@ -15,24 +17,34 @@ export function getSocket(): Socket | null {
 export async function connectSocket(): Promise<Socket> {
   if (socket?.connected) return socket;
 
-  const token = await getIdToken();
-  const user = auth.currentUser;
+  const user = await waitForAuth(); 
+
+  const token = await user.getIdToken();
+  if (!token) throw new Error('Missing Firebase token');
 
   socket = io(SOCKET_URL, {
     auth: {
       token,
-      username: user?.displayName || `Player_${user?.uid?.slice(0, 6)}`,
-      avatar: user?.photoURL,
+      username:
+        user.displayName || `Player_${user.uid.slice(0, 6)}`,
+      avatar: user.photoURL,
     },
     transports: ['websocket'],
     reconnection: true,
-    reconnectionAttempts: 5,
+  });
+
+  socket.on('connect', () => {
+    console.log('CONNECTED:', socket?.id);
+  });
+
+  socket.on('connect_error', (err) => {
+    console.error('CONNECT ERROR:', err.message);
   });
 
   return new Promise((resolve, reject) => {
-    socket!.on('connect', () => resolve(socket!));
-    socket!.on('connect_error', (err) => reject(err));
-    setTimeout(() => reject(new Error('Socket connection timeout')), 10000);
+    socket!.once('connect', () => resolve(socket!));
+    socket!.once('connect_error', reject);
+    setTimeout(() => reject(new Error('Socket timeout')), 10000);
   });
 }
 
@@ -49,8 +61,9 @@ export function emitWithAck<T>(event: string, data?: unknown): Promise<T> {
       reject(new Error('Socket not connected'));
       return;
     }
-    socket.emit(event, data, (response: T & { success?: boolean; error?: string }) => {
-      if (response && 'success' in response && !response.success) {
+
+    socket.emit(event, data, (response: any) => {
+      if (response?.success === false) {
         reject(new Error(response.error || 'Request failed'));
       } else {
         resolve(response);

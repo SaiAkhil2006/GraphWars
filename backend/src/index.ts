@@ -2,12 +2,12 @@ import express from 'express';
 import cors from 'cors';
 import { createServer } from 'http';
 import { Server } from 'socket.io';
-import { config } from './config/index.js';
-import { connectDatabase } from './config/database.js';
-import { initializeFirebase } from './config/firebase.js';
-import apiRoutes from './routes/api.js';
-import { errorHandler } from './middleware/errorHandler.js';
-import { setupSocketHandlers } from './socket/handlers.js';
+import { config } from './config/index.ts';
+import { connectDatabase } from './config/database.ts';
+import { initializeFirebase } from './config/firebase.ts';
+import apiRoutes from './routes/api.ts';
+import { errorHandler } from './middleware/errorHandler.ts';
+import { setupSocketHandlers } from './socket/handlers.ts';
 
 async function main() {
   initializeFirebase();
@@ -38,6 +38,13 @@ async function main() {
 
   httpServer.listen(config.port, () => {
     console.log(`GraphWars server running on port ${config.port}`);
+  });
+
+    io.engine.on("connection_error", (err) => {
+    console.log("❌ ENGINE ERROR:");
+    console.log(err.code);
+    console.log(err.message);
+    console.log(err.context);
   });
 }
 

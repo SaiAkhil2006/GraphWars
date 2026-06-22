@@ -1,4 +1,4 @@
-import { BOT_THINK_DELAY } from './constants';
+import { BOT_THINK_DELAY } from './constants.ts';
 
 export type BotDifficulty = keyof typeof BOT_THINK_DELAY;
 export type MatchMode = 'multiplayer' | 'solo';

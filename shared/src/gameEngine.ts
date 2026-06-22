@@ -6,9 +6,9 @@ import {
   MAX_DAMAGE,
   PLAYER_HITBOX_RADIUS,
   MIN_SPAWN_DISTANCE,
-} from './constants';
-import type { Point, Obstacle, PlayerState, LaserResult, LaserHit } from './types';
-import { generateGraphPoints, parseEquation } from './equationParser';
+} from './constants.ts';
+import type { Point, Obstacle, PlayerState, LaserResult, LaserHit } from './types.ts';
+import { generateGraphPoints, parseEquation } from './equationParser.ts';
 
 function distance(a: Point, b: Point): number {
   return Math.sqrt((a.x - b.x) ** 2 + (a.y - b.y) ** 2);

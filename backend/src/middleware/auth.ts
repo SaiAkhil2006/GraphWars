@@ -1,5 +1,9 @@
-import { Request, Response, NextFunction } from 'express';
-import { verifyIdToken } from '../config/firebase.js';
+import express from 'express';
+
+type Request = express.Request;
+type Response = express.Response;
+type NextFunction = express.NextFunction;;
+import { verifyIdToken } from '../config/firebase.ts';
 
 export interface AuthRequest extends Request {
   user?: { uid: string; email?: string };

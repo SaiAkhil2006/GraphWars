@@ -1,12 +1,11 @@
 import { v4 as uuidv4 } from 'uuid';
-import {
+import type {
   GameState,
   LobbyRoom,
   PlayerState,
   MatchConfig,
   GameMove,
-  BotDifficulty
-} from '@graphwars/shared/src/types.js';
+} from '@graphwars/shared/src/types.ts';
 
 import {
   MAX_HEALTH,
@@ -19,21 +18,21 @@ import {
   XP_PER_KILL,
   XP_PER_MATCH,
   XP_PER_LEVEL,
-} from '@graphwars/shared/src/constants.js';
+} from '@graphwars/shared/src/constants.ts';
 
 import {
   generateObstacles,
   generateSpawnPosition,
   getPlayerColor,
   computeLaserTrajectory
-} from '@graphwars/shared/src/gameEngine.js';
+} from '@graphwars/shared/src/gameEngine.ts';
 
-import { validateEquation} from '@graphwars/shared/src/equationParser.js'
-import { generateBotEquation, getBotThinkDelay} from '@graphwars/shared/src/botEngine.js'
+import { validateEquation} from '@graphwars/shared/src/equationParser.ts'
+import { generateBotEquation, getBotThinkDelay} from '@graphwars/shared/src/botEngine.ts'
 
-import { User } from '../models/User.js';
-import { Match } from '../models/Match.js';
-import { Statistics } from '../models/Statistics.js';
+import { User } from '../models/User.ts';
+import { Match } from '../models/Match.ts';
+import { Statistics } from '../models/Statistics.ts';
 
 const BOT_NAMES = [
   'AlphaBot', 'BetaBot', 'GammaBot', 'DeltaBot',
