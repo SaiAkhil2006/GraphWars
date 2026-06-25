@@ -29,7 +29,7 @@ export async function connectSocket(): Promise<Socket> {
         user.displayName || `Player_${user.uid.slice(0, 6)}`,
       avatar: user.photoURL,
     },
-    transports: ['websocket'],
+    transports: ['websocket', 'polling'],
     reconnection: true,
   });
 

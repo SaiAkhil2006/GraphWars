@@ -31,6 +31,10 @@ async function main() {
     res.json({ status: 'ok', timestamp: Date.now() });
   });
 
+  app.get("/", (_req, res) => {
+    res.send("GraphWars backend is running");
+  });
+
   app.use('/api', apiRoutes);
   app.use(errorHandler);
 
